@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <h2 class="page-header">Promsie 初体验</h2>
+      <button class="btn btn-promise" id="btn">抽奖</button>
+    </div>
+    <script>
+      function rand(m, n) {
+        return Math.ceil(Math.random() * (n - m + 1)) + m + 1;
+      }
+
+      const btn = document.querySelector(".btn");
+      btn.addEventListener("click", function () {
+        //     setTimeout(() => {
+        //         let n = rand(1,100)
+        //         if (n < 30) {
+        //             alert('恭喜中奖了')
+        //         } else {
+        //             alert('再接再厉')
+        //         }
+        //     },1000)
+
+        // 用Promise实现
+        const p = new Promise((reslove, reject) => {
+          setTimeout(() => {
+            let n = rand(1, 100);
+            if (n < 30) {
+              reslove(n); //将Promise状态设置为成功
+            } else {
+              reject(n); //将Promise状态设置为失败
+            }
+          }, 1000);
+        });
+
+        // 调用 then 方法
+        p.then(
+          (n) => {
+            alert("恭喜中奖,奖品为10万 RMB 劳斯莱斯优惠卷，您的中奖数字为" + n);
+          },
+          (n) => {
+            alert("再接再厉" + n);
+          }
+        );
+      }); 
+    </script>
+  </body>
+</html>
